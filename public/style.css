@@ -1,0 +1,14 @@
+.navbar-item-1 {
+  font-family: "Merriweather", serif;
+  font-weight: 900;
+  font-style: italic;
+  color: black;
+  /* 将文字颜色设置为蓝色 */
+
+  display: flex;
+  justify-content: center;
+  /* 水平居中 */
+  align-items: center;
+  /* 垂直居中 */
+  margin: 10px;
+}
