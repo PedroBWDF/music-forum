@@ -9,6 +9,10 @@ const handlebars = require('express-handlebars')
 app.engine('hbs', handlebars({ extname: '.hbs' }))
 // 設定使用 Handlebars 做為樣板引擎
 app.set('view engine', 'hbs')
+
+// 加入body.parser
+app.use(express.urlencoded({ extended: true }))
+
 app.use(express.static(path.join(__dirname, 'public')))
 
 // const db = require('./models') 測試與資料庫連線用
