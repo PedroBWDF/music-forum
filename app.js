@@ -6,8 +6,11 @@ const routes = require('./routes')
 const path = require('path')
 const handlebars = require('express-handlebars')
 
+require('dotenv').config()
+
 const session = require('express-session')
 const flash = require('connect-flash')
+const passport = require('./config/passport')
 const SESSION_SECRET = 'secret'
 
 // 註冊 Handlebars 樣板引擎，並指定副檔名為 .hbs
@@ -23,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 // const db = require('./models') 測試與資料庫連線用
 
 app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }))
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(flash())
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash('success_messages') // 設定 success_msg 訊息

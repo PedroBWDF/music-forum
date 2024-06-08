@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const db = require('../models')
 const { User } = db
 
@@ -29,6 +30,31 @@ const userController = {
         res.redirect('/music')
       })
       .catch(err => next(err))
+  },
+
+  logInPage: (req, res) => {
+    res.render('login')
+  },
+
+  logIn: (req, res, next) => {
+    try {
+      const userData = req.user.toJSON()
+      delete userData.password // 刪除密碼
+      console.log('User Data in signIn:', userData)
+
+      const token = jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: '30d' }) // 將 req.user 改成 userData
+
+      res.cookie('jwt', token, {
+        httpOnly: true // 仅通过 HTTP 传输，防止客户端 JavaScript 访问
+        // secure: process.env.NODE_ENV === 'production', // 仅在生产环境中启用 HTTPS
+        // maxAge: 30 * 24 * 60 * 60 * 1000 // 30 天
+      })
+
+      req.flash('success_messages', '成功登入！')
+      res.redirect('/music')
+    } catch (err) {
+      next(err)
+    }
   }
 }
 module.exports = userController
