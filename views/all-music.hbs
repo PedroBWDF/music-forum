@@ -48,12 +48,36 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
+            {{#if user}}
+              {{#if user.isAdmin}}
+              <a href=/admin class="button is-primary">
+                <strong>Adimin 後台</strong>
+              </a>
+              {{/if}}
+              <a href="" class="button is-rounded">
+                <strong>Hi</strong>
+                </a>
+            <a href=/logout class="button is-light">
+              Log out
+            </a>
+            {{else}}
             <a href=/signup class="button is-primary">
               <strong>Sign up</strong>
             </a>
             <a href=/login class="button is-light">
               Log in
             </a>
+            {{/if}}
+
+            {{!-- {{#if user.isAdmin}}
+            <a href=/admin class="button is-primary">
+              <strong>Adimin 後台</strong>
+            </a>
+            {{/if}}
+            <a href=/logout class="button is-light">
+              Log out
+            </a>
+            {{/if}} --}}
           </div>
         </div>
       </div>
