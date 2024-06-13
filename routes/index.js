@@ -4,14 +4,15 @@ const passport = require('../config/passport')
 
 const musicController = require('../controllers/music-controller')
 const userController = require('../controllers/user-controller')
+const { authenticated, authenticatedAdmin } = require('../middleware/auth')
 const { generalErrorHandler } = require('../middleware/error-handler')
 
 // 引入admin
 const admin = require('./modules/admin')
 
-router.get('/music', musicController.getAllMusic)
+router.get('/music', authenticated, musicController.getAllMusic)
 
-router.use('/admin', admin)
+router.use('/admin', authenticated, authenticatedAdmin, admin)
 
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)

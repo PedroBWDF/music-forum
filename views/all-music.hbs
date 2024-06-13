@@ -55,7 +55,7 @@
               </a>
               {{/if}}
               <a href="" class="button is-rounded">
-                <strong>Hi</strong>
+                <strong>Hi, {{user.email}}</strong>
                 </a>
             <a href=/logout class="button is-light">
               Log out
@@ -68,16 +68,6 @@
               Log in
             </a>
             {{/if}}
-
-            {{!-- {{#if user.isAdmin}}
-            <a href=/admin class="button is-primary">
-              <strong>Adimin 後台</strong>
-            </a>
-            {{/if}}
-            <a href=/logout class="button is-light">
-              Log out
-            </a>
-            {{/if}} --}}
           </div>
         </div>
       </div>
