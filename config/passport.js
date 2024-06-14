@@ -39,7 +39,7 @@ const jwtOptions = {
   secretOrKey: process.env.JWT_SECRET
 }
 passport.use(new JWTStrategy(jwtOptions, (jwtPayload, cb) => {
-  console.log('JWT payload:', jwtPayload)
+  // console.log('JWT payload:', jwtPayload)
   User.findByPk(jwtPayload.id, {
     // include: [
     //   { model: Restaurant, as: 'FavoritedRestaurants' },
@@ -49,17 +49,16 @@ passport.use(new JWTStrategy(jwtOptions, (jwtPayload, cb) => {
     // ]
     include: []
   })
-    // .then(user => cb(null, user))
     .then(user => {
       if (user) {
-        console.log('User found:', user)
+        // console.log('User found:', user)
         return cb(null, user)
       } else {
         console.warn('No user found with id:', jwtPayload.id)
         return cb(null, false)
       }
     })
-    // .catch(err => cb(err))
+
     .catch(err => {
       console.error('Error during user lookup:', err)
       return cb(err)

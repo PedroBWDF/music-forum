@@ -5,12 +5,13 @@ const passport = require('../config/passport')
 const musicController = require('../controllers/music-controller')
 const userController = require('../controllers/user-controller')
 const { authenticated, authenticatedAdmin } = require('../middleware/auth')
+const checkUser = require('../middleware/check-user')
 const { generalErrorHandler } = require('../middleware/error-handler')
 
 // 引入admin
 const admin = require('./modules/admin')
 
-router.get('/music', authenticated, musicController.getAllMusic)
+router.get('/music', checkUser, musicController.getAllMusic)
 
 router.use('/admin', authenticated, authenticatedAdmin, admin)
 
@@ -19,6 +20,7 @@ router.post('/signup', userController.signUp)
 
 router.get('/login', userController.logInPage)
 router.post('/login', passport.authenticate('local', { failureRedirect: '/login', session: false, failureFlash: true }), userController.logIn)
+router.get('/logout', userController.logout)
 
 router.use('/', generalErrorHandler)
 

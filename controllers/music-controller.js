@@ -1,6 +1,7 @@
 const musicController = {
   getAllMusic: (req, res) => {
-    res.render('all-music', { user: req.user })
+    // const user = req.user.toJSON()
+    res.render('all-music', { user: res.locals.user })
   }
 }
 
