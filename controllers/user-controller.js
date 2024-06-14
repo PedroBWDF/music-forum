@@ -52,7 +52,7 @@ const userController = {
       })
 
       req.flash('success_messages', '成功登入！')
-      console.log('Redirecting to /music')
+      // console.log('Redirecting to /music')
       res.redirect('/music')
     } catch (err) {
       next(err)

@@ -6,7 +6,8 @@ module.exports = {
       req.flash('error_messages', `${err}`)
     }
 
-    res.redirect('back')
+    // res.redirect('back')
+    res.redirect('/music')
     next(err)
   }
 }
