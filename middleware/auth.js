@@ -8,6 +8,7 @@ const authenticated = (req, res, next) => {
       throw new Error('unauthorized')
     }
     req.user = user.toJSON()
+    res.locals.user = user.toJSON()
     // console.log('Req.user:', user.toJSON())
     next()
   })(req, res, next)
