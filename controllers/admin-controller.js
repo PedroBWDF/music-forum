@@ -36,6 +36,19 @@ const adminController = {
       })
 
       .catch(err => next(err))
+  },
+
+  getSong: (req, res, next) => {
+    Song.findByPk(req.params.id, {
+      raw: true
+    })
+
+      .then(song => {
+        if (!song) { throw new Error("The song doesn't exist!") }
+        res.render('admin/song', { user: res.locals.user, song })
+      })
+
+      .catch(err => next(err))
   }
 }
 
