@@ -11,12 +11,32 @@ const adminController = {
       })
     // return res.render('admin/all-music', { user: res.locals.user })
       .catch(err => next(err))
-  }
+  },
 
-  // admin: (req, res) => {
-  //   console.log(res.locals.user)
-  //   return res.render('admin/all-music', { user: res.locals.user })
-  // }
+  createSong: (req, res, next) => {
+    return res.render('admin/create-song')
+  },
+
+  postSong: (req, res, next) => {
+    const { title, album, artist, releaseYear } = req.body
+    if (!title) throw new Error('Song title is required!')
+
+    Song.create({
+      title,
+      album,
+      artist,
+      releaseYear
+    })
+
+      .then(() => {
+        req.flash('success_messages', 'the song was successfully created')
+        // req.flash('success_messages', '成功登入！')
+        // console.log('Flash message:', req.flash('success_messages'))
+        res.redirect('/admin/music')
+      })
+
+      .catch(err => next(err))
+  }
 }
 
 module.exports = adminController

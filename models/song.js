@@ -18,10 +18,15 @@ module.exports = (sequelize, DataTypes) => {
     artist: DataTypes.STRING,
     genre: DataTypes.STRING,
     album: DataTypes.STRING,
-    release_year: DataTypes.STRING
+    // release_year: DataTypes.STRING
+    releaseYear: {
+      type: DataTypes.STRING,
+      field: 'release_year'
+    }
   }, {
     sequelize,
     modelName: 'Song',
+    tableName: 'Songs',
     underscored: true
   })
   return Song
