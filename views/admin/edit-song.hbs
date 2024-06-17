@@ -1,0 +1,35 @@
+<div class="container">
+  <h3 class="title is-3">Edit Song
+  </h3>
+  <form action="/admin/songs/{{song.id}}?_method=PUT" method="POST">
+    <div class="field">
+      <label class="label">Title</label>
+      <div class="control">
+        <input class="input" type="text" name="title" placeholder="Enter title" value="{{song.title}}" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Artist</label>
+      <div class="control">
+        <input class="input" type="text" name="artist" placeholder="Enter artist" value="{{song.artist}}">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Album</label>
+      <div class="control">
+        <input class="input" type="text" name="album" placeholder="Enter album" value="{{song.album}}">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Release Year</label>
+      <div class="control">
+        <input class="input" type="text" name="releaseYear" placeholder="Enter release year" value="{{song.releaseYear}}">
+      </div>
+    </div>
+
+    <button class="button" type="submit">Submit</button>
+  </form>
+</div>

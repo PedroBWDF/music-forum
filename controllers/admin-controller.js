@@ -49,6 +49,40 @@ const adminController = {
       })
 
       .catch(err => next(err))
+  },
+
+  editSong: (req, res, next) => {
+    Song.findByPk(req.params.id, {
+      raw: true
+    })
+
+      .then(song => {
+        if (!song) { throw new Error("The song doesn't exist!") }
+        res.render('admin/edit-song', { user: res.locals.user, song })
+      })
+  },
+
+  putSong: (req, res, next) => {
+    const { title, album, artist, releaseYear } = req.body
+    if (!title) throw new Error('Song title is required!')
+
+    Song.findByPk(req.params.id)
+      .then(song => {
+        if (!song) throw new Error("The song doesn't exist!")
+        return song.update({
+          title,
+          album,
+          artist,
+          releaseYear
+        })
+      })
+
+      .then(() => {
+        req.flash('success_messages', 'the song was successfully updated')
+        res.redirect('/admin/music')
+      })
+
+      .catch(err => next(err))
   }
 }
 

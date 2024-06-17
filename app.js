@@ -12,6 +12,7 @@ const handlebars = require('express-handlebars')
 
 const session = require('express-session')
 const flash = require('connect-flash')
+const methodOverride = require('method-override')
 const passport = require('./config/passport')
 const SESSION_SECRET = 'secret'
 
@@ -33,6 +34,7 @@ app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: fals
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
+app.use(methodOverride('_method'))
 
 app.use((req, res, next) => {
   const token = req.cookies.jwt
