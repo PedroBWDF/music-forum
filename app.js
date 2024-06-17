@@ -1,11 +1,11 @@
 require('dotenv').config()
+const path = require('path')
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const app = express()
 const port = 3000
 const routes = require('./routes')
 
-const path = require('path')
 const handlebars = require('express-handlebars')
 
 // require('dotenv').config()
@@ -13,6 +13,7 @@ const handlebars = require('express-handlebars')
 const session = require('express-session')
 const flash = require('connect-flash')
 const methodOverride = require('method-override')
+app.use('/upload', express.static(path.join(__dirname, 'upload')))
 const passport = require('./config/passport')
 const SESSION_SECRET = 'secret'
 

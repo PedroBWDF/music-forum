@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     releaseYear: {
       type: DataTypes.STRING,
       field: 'release_year'
-    }
+    },
+    image: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Song',

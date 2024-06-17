@@ -1,4 +1,5 @@
 const { Song } = require('../models')
+const { localFileHandler } = require('../helpers/file-helpers')
 
 const adminController = {
   getAllMusic: (req, res, next) => {
@@ -21,12 +22,17 @@ const adminController = {
     const { title, album, artist, releaseYear } = req.body
     if (!title) throw new Error('Song title is required!')
 
-    Song.create({
-      title,
-      album,
-      artist,
-      releaseYear
-    })
+    const { file } = req
+    localFileHandler(file)
+      .then(filePath =>
+        Song.create({
+          title,
+          album,
+          artist,
+          releaseYear,
+          image: filePath || null
+        })
+      )
 
       .then(() => {
         req.flash('success_messages', 'the song was successfully created')
@@ -66,16 +72,33 @@ const adminController = {
     const { title, album, artist, releaseYear } = req.body
     if (!title) throw new Error('Song title is required!')
 
-    Song.findByPk(req.params.id)
-      .then(song => {
+    const { file } = req
+    Promise.all([
+      Song.findByPk(req.params.id),
+      localFileHandler(file)
+    ])
+
+      .then(([song, filePath]) => {
         if (!song) throw new Error("The song doesn't exist!")
+
         return song.update({
           title,
           album,
           artist,
-          releaseYear
+          releaseYear,
+          image: filePath || song.image
         })
       })
+    // Song.findByPk(req.params.id)
+    //   .then(song => {
+    //     if (!song) throw new Error("The song doesn't exist!")
+    //     return song.update({
+    //       title,
+    //       album,
+    //       artist,
+    //       releaseYear
+    //     })
+    //   })
 
       .then(() => {
         req.flash('success_messages', 'the song was successfully updated')

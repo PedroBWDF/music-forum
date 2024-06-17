@@ -1,7 +1,7 @@
 <div class="container">
   <h3 class="title is-3">Create Song
   </h3>
-<form action="/admin/songs" method="POST">
+<form action="/admin/songs" method="POST" enctype="multipart/form-data">
   <div class="field">
     <label class="label">Title</label>
     <div class="control">
@@ -30,6 +30,17 @@
     </div>
   </div>
 
-<button class="button" type="submit">Submit</button>
+<div class="field">
+  <label class="label" for="image">Image</label>
+  <input class="form-control" type="file" class="form-control-file" id="image" name="image">
+</div>
+
+<div class="field is-grouped">
+<button class="button is-link" type="submit">Submit</button>
+<div class="control">
+  <button class="button is-link is-light" type="button" onclick="window.history.back()">Back</button>
+</div>
+</div>
 </form>
+{{!-- <a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a> --}}
 </div>

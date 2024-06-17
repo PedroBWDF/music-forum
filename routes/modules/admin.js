@@ -2,14 +2,15 @@ const express = require('express')
 const router = express.Router()
 
 const adminController = require('../../controllers/admin-controller')
+const upload = require('../../middleware/multer')
 
 router.get('/songs/create', adminController.createSong)
 router.get('/songs/:id/edit', adminController.editSong)
 router.get('/songs/:id', adminController.getSong)
-router.put('/songs/:id', adminController.putSong)
+router.put('/songs/:id', upload.single('image'), adminController.putSong)
 router.delete('/songs/:id', adminController.deleteSong)
 router.get('/music', adminController.getAllMusic)
-router.post('/songs', adminController.postSong)
+router.post('/songs', upload.single('image'), adminController.postSong)
 // router.get('/', adminController.admin)
 
 router.use('/', (req, res) => {
