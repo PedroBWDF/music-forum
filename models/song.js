@@ -11,12 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
+      // Song.belongsTo(models.Category, {
+      //   foreignKey: 'categoryId'
+      // }),
+      Song.belongsTo(models.Genre, {
+        foreignKey: 'genreId'
+      })
     }
   }
   Song.init({
     title: DataTypes.STRING,
     artist: DataTypes.STRING,
-    genre: DataTypes.STRING,
+    // genre: DataTypes.STRING,
     album: DataTypes.STRING,
     // release_year: DataTypes.STRING
     releaseYear: {
