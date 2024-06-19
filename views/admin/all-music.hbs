@@ -3,8 +3,10 @@
 <section class="section">
 <div class="container">
 <h1 class="title is-3">音樂後台</h1>
+{{> admin-switch-table}}
+<br>
 <a href='/admin/songs/create'>
-  <button class="button">New Songs</button>
+  <button class="button is-link">New Songs</button>
 </a>
 <br />
 <br />
@@ -44,7 +46,7 @@
         </a>
       </button></td>
       <td><form action="/admin/songs/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-        <button type="submit" class="btn btn-link link-danger" onclick="return confirm(`確定要刪除 {{ this.title }} 嗎？`)">Delete</button>
+        <button type="submit" class="btn btn-delete" onclick="return confirm(`確定要刪除 {{ this.title }} 嗎？`)">Delete</button>
       </form></td>
 
       {{!-- <td><button class="button">

@@ -1,4 +1,4 @@
-const { Song } = require('../models')
+const { Song, User } = require('../models')
 const { localFileHandler } = require('../helpers/file-helpers')
 
 const adminController = {
@@ -36,7 +36,6 @@ const adminController = {
 
       .then(() => {
         req.flash('success_messages', 'the song was successfully created')
-        // req.flash('success_messages', '成功登入！')
         // console.log('Flash message:', req.flash('success_messages'))
         res.redirect('/admin/music')
       })
@@ -120,6 +119,43 @@ const adminController = {
         res
           .redirect('/admin/music')
       })
+      .catch(err => next(err))
+  },
+
+  getUser: (req, res, next) => {
+    User.findAll({
+      raw: true
+    })
+
+      .then(users => {
+        res.render('admin/users', { user: res.locals.user, users })
+      })
+      .catch(err => next(err))
+  },
+
+  patchUser: (req, res, next) => {
+    const id = req.params.id
+    return User.findByPk(id)
+
+      .then(user => {
+        if (!user) throw new Error("User doesn't exist!")
+        if (user.email === 'root@example.com') {
+          req.flash('error_messages', '禁止變更 root 權限')
+          return res.redirect('back')
+        }
+
+        return user.update(
+          { isAdmin: !user.isAdmin }
+          // ,{ where: { id: user.id } }
+          // 已經是instance操作，不用where
+        )
+      })
+
+      .then(() => {
+        req.flash('success_messages', '使用者權限變更成功')
+        return res.redirect('/admin/users')
+      })
+
       .catch(err => next(err))
   }
 }

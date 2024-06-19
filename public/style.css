@@ -11,3 +11,15 @@
   /* 垂直居中 */
   margin: 10px;
 }
+
+.btn-admin {
+  color: #0000FF
+}
+
+.btn-user {
+    color: #0000FF
+  }
+
+.btn-delete {
+  color: #DC143C
+}
