@@ -1,10 +1,12 @@
-const { Song, User } = require('../models')
+const { Song, User, Genre } = require('../models')
 const { localFileHandler } = require('../helpers/file-helpers')
 
 const adminController = {
   getAllMusic: (req, res, next) => {
     Song.findAll({
-      raw: true
+      raw: true,
+      nest: true,
+      include: [Genre]
     })
 
       .then(allmusic => {
@@ -45,7 +47,9 @@ const adminController = {
 
   getSong: (req, res, next) => {
     Song.findByPk(req.params.id, {
-      raw: true
+      raw: true,
+      nest: true,
+      include: [Genre]
     })
 
       .then(song => {
