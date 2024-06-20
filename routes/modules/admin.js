@@ -7,6 +7,7 @@ const upload = require('../../middleware/multer')
 
 router.get('/genres/:id', genreController.getGenres)
 router.put('/genres/:id', genreController.putGenre)
+router.delete('/genres/:id', genreController.deleteGenre)
 router.get('/genres', genreController.getGenres)
 router.post('/genres', genreController.postGenre)
 

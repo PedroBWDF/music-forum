@@ -92,8 +92,9 @@
             </button></td> --}}
           <td>
             <form action="/admin/genres/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+            <input type="hidden" name="name" value="{{this.name}}">
               <button type="submit" class="btn btn-delete"
-                onclick="return confirm(`確定要刪除 {{ this.title }} 嗎？`)">Delete</button>
+                onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
             </form>
           </td>
         </tr>

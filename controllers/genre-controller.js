@@ -21,7 +21,7 @@ const genreController = {
     })
 
       .then(() => {
-        req.flash('success_messages', `"The genre ${name}" is successfully created`)
+        req.flash('success_messages', `The genre "${name}" is successfully created`)
         res.redirect('/admin/genres')
       })
       .catch(err => next(err))
@@ -38,6 +38,22 @@ const genreController = {
       })
       .then(() => {
         req.flash('success_messages', `The genre "${name}" is successfully updated`)
+        res.redirect('/admin/genres')
+      })
+      .catch(err => next(err))
+  },
+
+  deleteGenre: (req, res, next) => {
+    const { name } = req.body
+    
+    return Genre.findByPk(req.params.id)
+      .then(genre => {
+        if (!genre) throw new Error("The genre doesn't exist!")
+        return genre.destroy()
+      })
+
+      .then(() => {
+        req.flash('success_messages', `The genre "${name}" is successfully deleted`)
         res.redirect('/admin/genres')
       })
       .catch(err => next(err))
