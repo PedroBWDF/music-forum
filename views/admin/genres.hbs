@@ -5,9 +5,17 @@
     <h1 class="title is-3">音樂後台</h1>
     {{> admin-switch-table route='genres'}}
     <br>
-    <a href='/admin/songs/create'>
-      <button class="button is-link">New Songs</button>
-    </a>
+    <div>
+      <form class="columns" action="/admin/genres" method="POST">
+        <div class="column is-narrow">
+          <input class="input is-primary" type="text" placeholder="Genre Name" name="name" style="width: 315px;">
+        </div>
+        <div class="column is-narrow">
+          <button class="button is-link" type="submit">Create</button>
+        </div>
+      </form>
+    </div>
+    
     <br />
     <br />
     <table class="table">

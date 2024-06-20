@@ -6,6 +6,7 @@ const genreController = require('../../controllers/genre-controller')
 const upload = require('../../middleware/multer')
 
 router.get('/genres', genreController.getGenres)
+router.post('/genres', genreController.postGenre)
 
 router.get('/users', adminController.getUser)
 router.patch('/users/:id', adminController.patchUser)
