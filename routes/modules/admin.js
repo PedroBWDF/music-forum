@@ -5,6 +5,8 @@ const adminController = require('../../controllers/admin-controller')
 const genreController = require('../../controllers/genre-controller')
 const upload = require('../../middleware/multer')
 
+router.get('/genres/:id', genreController.getGenres)
+router.put('/genres/:id', genreController.putGenre)
 router.get('/genres', genreController.getGenres)
 router.post('/genres', genreController.postGenre)
 
