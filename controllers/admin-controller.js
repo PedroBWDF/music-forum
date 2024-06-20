@@ -17,11 +17,18 @@ const adminController = {
   },
 
   createSong: (req, res, next) => {
-    return res.render('admin/create-song')
+    return Genre.findAll({
+      raw: true
+    })
+
+      .then(genres => {
+        res.render('admin/create-song', { genres })
+      })
+      .catch(err => next(err))
   },
 
   postSong: (req, res, next) => {
-    const { title, album, artist, releaseYear } = req.body
+    const { title, album, artist, releaseYear, genreId } = req.body
     if (!title) throw new Error('Song title is required!')
 
     const { file } = req
@@ -32,7 +39,8 @@ const adminController = {
           album,
           artist,
           releaseYear,
-          image: filePath || null
+          image: filePath || null,
+          genreId
         })
       )
 
@@ -61,18 +69,25 @@ const adminController = {
   },
 
   editSong: (req, res, next) => {
-    Song.findByPk(req.params.id, {
-      raw: true
-    })
+    return Promise.all([
+      Genre.findAll({
+        raw: true
+      }),
+      Song.findByPk(req.params.id, {
+        raw: true
+      })
+    ])
 
-      .then(song => {
+      .then(([genres, song]) => {
         if (!song) { throw new Error("The song doesn't exist!") }
-        res.render('admin/edit-song', { user: res.locals.user, song })
+        console.log('genres:', genres)
+        console.log('song:', song)
+        res.render('admin/edit-song', { user: res.locals.user, song, genres })
       })
   },
 
   putSong: (req, res, next) => {
-    const { title, album, artist, releaseYear } = req.body
+    const { title, album, artist, releaseYear, genreId } = req.body
     if (!title) throw new Error('Song title is required!')
 
     const { file } = req
@@ -89,7 +104,8 @@ const adminController = {
           album,
           artist,
           releaseYear,
-          image: filePath || song.image
+          image: filePath || song.image,
+          genreId
         })
       })
     // Song.findByPk(req.params.id)
