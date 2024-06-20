@@ -1,0 +1,76 @@
+{{> navbar}}
+{{> messages}}
+<section class="section">
+  <div class="container">
+    <h1 class="title is-3">音樂後台</h1>
+    {{> admin-switch-table route='genres'}}
+    <br>
+    <a href='/admin/songs/create'>
+      <button class="button is-link">New Songs</button>
+    </a>
+    <br />
+    <br />
+    <table class="table">
+      <thead>
+        <tr>
+          <th><abbr title="Position">#</abbr></th>
+          <th>Genre Name</th>
+          <th>#</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+      </thead>
+      <tbody>
+        {{#each genres}}
+        <tr>
+          <th>{{this.id}}</th>
+          <td>{{this.name}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+          <td><button type="button" class="btn btn-link">
+              <a class="btn btn-link link-primary" href="/admin/genres/{{this.id}}">
+                Edit
+              </a>
+            </button></td>
+          {{!-- <td><button type="button" class="btn btn-link">
+              <a class="btn btn-link link-primary" href="/admin/songs/{{this.id}}/edit">
+                Edit
+              </a>
+            </button></td> --}}
+          <td>
+            <form action="/admin/genres/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+              <button type="submit" class="btn btn-delete"
+                onclick="return confirm(`確定要刪除 {{ this.title }} 嗎？`)">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>
