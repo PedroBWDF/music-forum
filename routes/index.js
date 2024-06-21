@@ -12,6 +12,7 @@ const { generalErrorHandler } = require('../middleware/error-handler')
 const admin = require('./modules/admin')
 
 router.get('/music', checkUser, musicController.getAllMusic)
+router.get('/songs/:id', checkUser, musicController.getSong)
 
 router.use('/admin', authenticated, authenticatedAdmin, admin)
 

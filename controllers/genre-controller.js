@@ -45,7 +45,7 @@ const genreController = {
 
   deleteGenre: (req, res, next) => {
     const { name } = req.body
-    
+
     return Genre.findByPk(req.params.id)
       .then(genre => {
         if (!genre) throw new Error("The genre doesn't exist!")

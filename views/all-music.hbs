@@ -1,86 +1,40 @@
-<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item-1" href="/">
-      音樂
-    </a>
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-    </div>
-    
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href="/">
-          Home
-        </a>
-    
-        <a class="navbar-item">
-          Documentation
-        </a>
-    
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            More
-          </a>
-    
-          <div class="navbar-dropdown">
-            <a class="navbar-item">
-              About
-            </a>
-            <a class="navbar-item is-selected">
-              Jobs
-            </a>
-            <hr class="navbar-divider">
-            <a class="navbar-item">
-              Contact
-            </a>
-            <hr class="navbar-divider">
-            <a class="navbar-item">
-              Report an issue
-            </a>
-          </div>
-        </div>
-      </div>
-    
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            {{#if user}}
-              {{#if user.isAdmin}}
-              <a href=/admin class="button is-primary">
-                <strong>Adimin 後台</strong>
-              </a>
-              {{/if}}
-              <a href="" class="button is-rounded">
-                <strong>Hi, {{user.email}}</strong>
-                </a>
-            <a href=/logout class="button is-light">
-              Log out
-            </a>
-            {{else}}
-            <a href=/signup class="button is-primary">
-              <strong>Sign up</strong>
-            </a>
-            <a href=/login class="button is-light">
-              Log in
-            </a>
-            {{/if}}
-          </div>
-        </div>
-      </div>
-    </div>
-    </nav>
+{{> navbar}}
     {{> messages}}
     <section class="section">
       <div class="container">
-        <h1 class="title">
-          Hello World
-        </h1>
-        <p class="subtitle">
-          My first website with <strong>Bulma</strong>!
-        </p>
+        <div class="columns is-multiline">
+        {{#each songs}}
+        <div class="column is-one-quarter">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <a href="/songs/{{this.id}}">
+              <img src="{{this.image}}" alt="Placeholder image"/>
+              </a>
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media-content">
+              <p class="title is-6">
+                <a href="/songs/{{this.id}}">
+                  {{this.title}}
+                </a>
+              </p>
+              <div class="content">
+                <p>
+                  {{this.artist}}
+                  <br />
+                  {{this.album}}&nbsp;&nbsp;&nbsp;#{{this.releaseYear}}
+                </p>
+                {{!-- <p>
+                  {{this.album}} {{this.releaseYear}}
+                </p> --}}
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        {{/each}}
+        </div>
       </div>
     </section>
