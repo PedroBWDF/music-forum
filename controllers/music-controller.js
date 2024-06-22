@@ -3,15 +3,22 @@ const { Song, Genre } = require('../models')
 const musicController = {
   getAllMusic: (req, res) => {
     // const user = req.user.toJSON()
-    return Song.findAll({
+    const genreId = Number(req.query.genreId) || ''
+
+    return Promise.all([Song.findAll({
       include: Genre,
+      where: {
+        ...genreId ? { genreId } : {}
+      },
       nest: true,
       raw: true
-    })
+    }),
+    Genre.findAll({ raw: true })
+    ])
 
-      .then(songs => {
-        console.log('user:', res.locals.user)
-        return res.render('all-music', { user: res.locals.user, songs })
+      .then(([songs, genres]) => {
+        // console.log('user:', res.locals.user)
+        return res.render('all-music', { user: res.locals.user, songs, genres, genreId })
       })
   },
 

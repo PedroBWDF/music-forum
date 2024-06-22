@@ -2,6 +2,20 @@
     {{> messages}}
     <section class="section">
       <div class="container">
+        <div class="tabs is-medium">
+          <ul>
+            <li class="{{#ifCond '' genreId}}is-active{{/ifCond}}">
+              <a href="?genreId=">All
+              </a>
+            </li>
+            {{#each genres}}
+            <li class="{{#ifCond this.id ../genreId}}is-active{{/ifCond}}">
+              <a href="?genreId={{this.id}}">{{this.name}}</a>
+            </li>
+            {{/each}}
+            </ul>
+          </div>
+
         <div class="columns is-multiline">
         {{#each songs}}
         <div class="column is-one-quarter">
@@ -19,7 +33,11 @@
                 <a href="/songs/{{this.id}}">
                   {{this.title}}
                 </a>
-              </p>
+                <br />
+                <br />
+                  <span class="tag is-danger is-light">
+                    {{this.Genre.name}}
+                  </span>
               <div class="content">
                 <p>
                   {{this.artist}}
