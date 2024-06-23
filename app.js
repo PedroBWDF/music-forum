@@ -40,6 +40,8 @@ app.use(passport.session())
 app.use(flash())
 app.use(methodOverride('_method'))
 
+app.get('/favicon.ico', (req, res) => res.status(204))
+
 app.use((req, res, next) => {
   const token = req.cookies.jwt
   if (token) {

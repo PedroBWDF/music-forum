@@ -1,15 +1,22 @@
 const { Song, Genre } = require('../models')
+const { getOffset, getPagination } = require('../helpers/pagination-helper')
 
 const musicController = {
-  getAllMusic: (req, res) => {
+  getAllMusic: (req, res, next) => {
     // const user = req.user.toJSON()
+    const DEFAULT_LIMIT = 12
     const genreId = Number(req.query.genreId) || ''
+    const page = Number(req.query.page) || 1
+    const limit = DEFAULT_LIMIT
+    const offset = getOffset(limit, page)
 
-    return Promise.all([Song.findAll({
+    return Promise.all([Song.findAndCountAll({
       include: Genre,
       where: {
         ...genreId ? { genreId } : {}
       },
+      offset,
+      limit,
       nest: true,
       raw: true
     }),
@@ -18,8 +25,12 @@ const musicController = {
 
       .then(([songs, genres]) => {
         // console.log('user:', res.locals.user)
-        return res.render('all-music', { user: res.locals.user, songs, genres, genreId })
+        console.log('songs.count:', songs.count)
+        // console.log('songs.rows:', songs.rows)
+        return res.render('all-music', { user: res.locals.user, songs: songs.rows, genres, genreId, pagination: getPagination(limit, page, songs.count) })
       })
+
+      .catch(err => next(err))
   },
 
   getSong: (req, res, next) => {

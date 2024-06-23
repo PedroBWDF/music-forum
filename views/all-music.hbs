@@ -2,6 +2,7 @@
     {{> messages}}
     <section class="section">
       <div class="container">
+        {{!-- genre tabs --}}
         <div class="tabs is-medium">
           <ul>
             <li class="{{#ifCond '' genreId}}is-active{{/ifCond}}">
@@ -15,7 +16,7 @@
             {{/each}}
             </ul>
           </div>
-
+        {{!-- songs --}}
         <div class="columns is-multiline">
         {{#each songs}}
         <div class="column is-one-quarter">
@@ -44,9 +45,6 @@
                   <br />
                   {{this.album}}&nbsp;&nbsp;&nbsp;#{{this.releaseYear}}
                 </p>
-                {{!-- <p>
-                  {{this.album}} {{this.releaseYear}}
-                </p> --}}
               </div>
             </div>
           </div>
@@ -54,5 +52,19 @@
         </div>
         {{/each}}
         </div>
+        {{!-- pagination --}}
+        <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+          <a href="/music?page={{pagination.prev}}&genreId={{genreId}}" class="pagination-previous">Previous</a>
+          <a href="/music?page={{pagination.next}}&genreId={{genreId}}" class="pagination-next">Next page</a>
+          <ul class="pagination-list">
+            {{#each pagination.pages}}
+              {{#ifCond this ../pagination.currentPage}}
+              <li><a href="#" class="pagination-link is-current" aria-label="Goto page">{{this}}</a></li>
+              {{else}}
+              <li><a href="/music?page={{this}}&genreId={{../genreId}}" class="pagination-link" aria-label="Goto page">{{this}}</a></li>
+            {{/ifCond}}
+            {{/each}}
+          </ul>
+        </nav>
       </div>
     </section>
