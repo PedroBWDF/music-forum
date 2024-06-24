@@ -8,7 +8,7 @@ const commentController = {
     if (!text) throw new Error('Comment text is required!')
 
     return Promise.all([
-      Song.findByPk(songId),
+      Song.findByPk(songId), // 反查關聯的song
       User.findByPk(userId)
     ])
 

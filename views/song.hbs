@@ -4,7 +4,7 @@
   <div class="content">
     <div>
       <h1>{{song.title}}</h1>
-      <h4>{{song.Genre.name}}</h4>
+      <h6 class="tag is-danger is-light">{{song.Genre.name}}</h6>
     </div>
     <div class="col-md-4">
       <img class="img-responsive center-block" src="{{song.image}}"
@@ -26,6 +26,16 @@
   {{!-- <a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a> --}}
   
   {{!-- comment area --}}
+  <h4 class="title is-4">所有留言：</h4>
+  {{#each song.Comments}}
+    <div class="block">
+      <h5 class="title is-5"><a href="/users/{{this.User.id}}">{{this.User.name}}</a></h5>
+      <p>{{this.text}}</p>
+      <footer class="blockquote-footer">{{this.createdAt}}</footer>
+    </div>
+    <hr />
+  {{/each}}
+
   <form action="/comments" method="POST">
   <div class="field">
     <label class="label">Leave your comments</label>
