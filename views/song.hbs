@@ -1,5 +1,5 @@
 {{>navbar}}
-
+{{> messages}}
 <section class="section">
   <div class="content">
     <div>
@@ -23,5 +23,24 @@
     </div> --}}
     <hr>
   </div>
-  <a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a>
+  {{!-- <a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a> --}}
+  
+  {{!-- comment area --}}
+  <form action="/comments" method="POST">
+  <div class="field">
+    <label class="label">Leave your comments</label>
+    <div class="control">
+      <textarea class="textarea" name="text" placeholder="Textarea"></textarea>
+    </div>
+  </div>
+  <div class="field is-grouped">
+    <div class="control">
+      <input type="hidden" name="songId" value="{{song.id}}" />
+      <button class="button is-link">Submit</button>
+    </div>
+    <div class="control">
+        <button class="button is-link is-light" type="button" onclick="window.history.back()">Back</button>
+    </div>
+  </div>
+  </form>
 </section>
