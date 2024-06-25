@@ -12,6 +12,7 @@ const { generalErrorHandler } = require('../middleware/error-handler')
 // 引入admin
 const admin = require('./modules/admin')
 
+router.delete('/comments/:id', authenticated, authenticatedAdmin, commentController.deleteComment)
 router.post('/comments', authenticated, commentController.postComment)
 
 router.get('/music', checkUser, musicController.getAllMusic)

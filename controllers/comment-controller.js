@@ -26,6 +26,21 @@ const commentController = {
         res.redirect(`/songs/${songId}`)
       })
       .catch(err => next(err))
+  },
+
+  deleteComment: (req, res, next) => {
+    return Comment.findByPk(req.params.id)
+
+      .then(comment => {
+        if (!comment) throw new Error("The comment doesn't exist!")
+        return comment.destroy()
+      })
+      .then((deletedComment) => {
+        req.flash('success_messages', 'The comment is successfully deleted!')
+        // console.log(deletedComment)
+        res.redirect(`/songs/${deletedComment.songId}`)
+      })
+      .catch(err => next(err))
   }
 }
 

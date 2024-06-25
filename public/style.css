@@ -23,3 +23,7 @@
 .btn-delete {
   color: #DC143C
 }
+
+.delete-button-form {
+  float: right;
+}
