@@ -35,7 +35,7 @@ const commentController = {
         if (!comment) throw new Error("The comment doesn't exist!")
         return comment.destroy()
       })
-      .then((deletedComment) => {
+      .then(deletedComment => {
         req.flash('success_messages', 'The comment is successfully deleted!')
         // console.log(deletedComment)
         res.redirect(`/songs/${deletedComment.songId}`)

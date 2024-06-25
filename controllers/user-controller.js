@@ -1,7 +1,9 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const db = require('../models')
-const { User } = db
+// const db = require('../models')
+// const { User } = db
+const { User } = require('../models')
+const { localFileHandler } = require('../helpers/file-helpers') // 讓程式可以把image檔案傳到 file-helper 處理
 
 const userController = {
   signUpPage: (req, res) => {
@@ -63,6 +65,54 @@ const userController = {
     req.flash('success_messages', '成功登出了！')
     res.clearCookie('jwt') // express文件有寫
     res.redirect('/music')
+  },
+
+  getUser: (req, res, next) => {
+    return User.findByPk(req.params.id)
+      .then(user => {
+        if (!user) throw new Error("The user doesn't exist!")
+        // user = user.toJSON()
+        // console.log('user:', user)
+        res.render('users/profile', { user: res.locals.user })
+      })
+      .catch(err => next(err))
+  },
+
+  editUser: (req, res, next) => {
+    return User.findByPk(req.params.id)
+
+      .then(user => {
+        if (!user) throw new Error("The user doesn't exist!")
+        res.render('users/edit', { user: res.locals.user })
+      })
+      .catch(err => next(err))
+  },
+
+  putUser: (req, res, next) => {
+    if (Number(req.params.id) !== Number(req.user.id)) { // 確保只有用戶才可以編輯自己的資料
+      throw new Error('You are not authorized')
+    }
+
+    const { name } = req.body
+    const { file } = req // 把檔案取出來，也可以寫成 const file = req.file
+
+    return Promise.all([
+      User.findByPk(req.params.id),
+      localFileHandler(file) // 把image檔案傳到 file-helper 處理
+    ])
+      .then(([user, filePath]) => {
+        if (!user) throw new Error("User didn't exist!")
+
+        return user.update({
+          name,
+          image: filePath || user.image
+        })
+      })
+      .then(() => {
+        req.flash('success_messages', '使用者資料編輯成功')
+        res.redirect(`/users/${req.params.id}`)
+      })
+      .catch(err => next(err))
   }
 }
 module.exports = userController

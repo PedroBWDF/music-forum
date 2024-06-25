@@ -54,8 +54,11 @@
             <strong>Adimin 後台</strong>
           </a>
           {{/if}}
-          <a href="" class="button is-rounded">
+          <a href="" class="button is-primary" onclick="event.preventDefault()">
             <strong>Hi, {{user.email}}</strong>
+          </a>
+          <a href="/users/{{user.id}}" class="button is-rounded is-outlined">
+            <strong>My profile</strong>
           </a>
           <a href=/logout class="button is-light">
             Log out
