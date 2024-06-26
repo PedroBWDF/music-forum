@@ -27,3 +27,11 @@
 .delete-button-form {
   float: right;
 }
+
+.custom-font {
+  font-family: "Noto Sans TC", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  /* 根据需要调整字体权重 */
+  font-style: normal;
+}

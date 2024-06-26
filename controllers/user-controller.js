@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 // const db = require('../models')
 // const { User } = db
-const { User } = require('../models')
+const { User, Song, Comment } = require('../models')
 const { localFileHandler } = require('../helpers/file-helpers') // 讓程式可以把image檔案傳到 file-helper 處理
 
 const userController = {
@@ -68,12 +68,16 @@ const userController = {
   },
 
   getUser: (req, res, next) => {
-    return User.findByPk(req.params.id)
+    return User.findByPk(req.params.id, {
+      include: [
+        { model: Comment, include: Song }
+      ]
+    })
       .then(user => {
+        const commentData = user.Comments ? user.Comments.map(comment => comment.toJSON()) : []
         if (!user) throw new Error("The user doesn't exist!")
-        // user = user.toJSON()
         // console.log('user:', user)
-        res.render('users/profile', { user: res.locals.user })
+        res.render('users/profile', { user: res.locals.user, commentData })
       })
       .catch(err => next(err))
   },
