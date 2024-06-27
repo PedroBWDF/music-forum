@@ -13,10 +13,12 @@ const upload = require('../middleware/multer')
 // 引入admin
 const admin = require('./modules/admin')
 
+router.get('/comments/latest', checkUser, commentController.getLatestComments)
 router.delete('/comments/:id', authenticated, authenticatedAdmin, commentController.deleteComment)
 router.post('/comments', authenticated, commentController.postComment)
 
 router.get('/music', checkUser, musicController.getAllMusic)
+router.get('/songs/latest', checkUser, musicController.getLatestSongs)
 router.get('/songs/:id', checkUser, musicController.getSong)
 
 router.use('/admin', authenticated, authenticatedAdmin, admin)

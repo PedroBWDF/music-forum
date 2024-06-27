@@ -46,6 +46,20 @@ const musicController = {
         res.render('song', { user: res.locals.user, song: song.toJSON() })
       })
       .catch(err => next(err))
+  },
+
+  getLatestSongs: (req, res, next) => {
+    return Song.findAll({
+      limit: 10,
+      order: [['createdAt', 'DESC']],
+      include: [Genre],
+      raw: true,
+      nest: true
+    })
+      .then(songs => {
+        res.render('latest-songs', { user: res.locals.user, songs })
+      })
+      .catch(err => next(err))
   }
 }
 

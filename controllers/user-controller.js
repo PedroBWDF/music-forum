@@ -74,10 +74,12 @@ const userController = {
       ]
     })
       .then(user => {
+        const profileUser = user.toJSON()
         const commentData = user.Comments ? user.Comments.map(comment => comment.toJSON()) : []
         if (!user) throw new Error("The user doesn't exist!")
         // console.log('user:', user)
-        res.render('users/profile', { user: res.locals.user, commentData })
+        // console.log('commentDat:', commentData )
+        res.render('users/profile', { profileUser, commentData })
       })
       .catch(err => next(err))
   },

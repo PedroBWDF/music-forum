@@ -41,6 +41,22 @@ const commentController = {
         res.redirect(`/songs/${deletedComment.songId}`)
       })
       .catch(err => next(err))
+  },
+
+  getLatestComments: (req, res, next) => {
+    return Comment.findAll({
+      limit: 10,
+      order: [['createdAt', 'DESC']],
+      include: [Song, User],
+      raw: true,
+      nest: true
+
+    })
+      .then(comments => {
+        // console.log('comments:', comments)
+        res.render('latest-comments', { user: res.locals.user, comments })
+      })
+      .catch(err => next(err))
   }
 }
 
