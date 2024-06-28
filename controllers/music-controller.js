@@ -24,9 +24,16 @@ const musicController = {
     ])
 
       .then(([songs, genres]) => {
-        // console.log('user:', res.locals.user)
         // console.log('songs.rows:', songs.rows)
-        return res.render('all-music', { user: res.locals.user, songs: songs.rows, genres, genreId, pagination: getPagination(limit, page, songs.count) })
+        // const likedSongsId = req.user && req.user.LikedSongs.map(ls => ls.id)
+        const likedSongsId = req.user ? req.user.LikedSongs.map(ls => ls.id) : []
+        console.log('likedSongsId:', likedSongsId)
+        const data = songs.rows.map(s => ({
+          ...s,
+          isLiked: likedSongsId.includes(s.id)
+        }))
+
+        return res.render('all-music', { user: res.locals.user, songs: data, genres, genreId, pagination: getPagination(limit, page, songs.count) })
       })
 
       .catch(err => next(err))
@@ -36,14 +43,17 @@ const musicController = {
     return Song.findByPk(req.params.id, {
       include: [
         Genre, // 跟song關聯的genre
-        { model: Comment, include: User } // 跟song關聯的comment的user
+        { model: Comment, include: User }, // 跟song關聯的comment的user
+        { model: User, as: 'LikedUsers' }
       ]
       // 拿掉nest跟raw: true
     })
       .then(song => {
         if (!song) { throw new Error("The song doesn't exist!") }
+        const isLiked = song.LikedUsers.some(lu => lu.id === req.user.id)
+        console.log('isLiked:', isLiked)
         // console.log('user:', res.locals.user)
-        res.render('song', { user: res.locals.user, song: song.toJSON() })
+        res.render('song', { user: res.locals.user, song: song.toJSON(), isLiked })
       })
       .catch(err => next(err))
   },

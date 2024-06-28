@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 // const db = require('../models')
 // const { User } = db
-const { User, Song, Comment } = require('../models')
+const { User, Song, Comment, Like } = require('../models')
 const { localFileHandler } = require('../helpers/file-helpers') // 讓程式可以把image檔案傳到 file-helper 處理
 
 const userController = {
@@ -118,6 +118,58 @@ const userController = {
         req.flash('success_messages', '使用者資料編輯成功')
         res.redirect(`/users/${req.params.id}`)
       })
+      .catch(err => next(err))
+  },
+
+  addLike: (req, res, next) => {
+    const { songId } = req.params
+
+    return Promise.all([
+      Song.findByPk(songId),
+      Like.findOne({
+        where: {
+          userId: req.user.id,
+          songId
+        }
+      })
+    ])
+
+      .then(([song, like]) => {
+        console.log('req.user:', req.user)
+        if (!song) throw new Error("The song doesn't exist!")
+        if (like) throw new Error("You've already liked the song!")
+
+        return Like.create({
+          userId: req.user.id,
+          songId
+        })
+      })
+
+      .then(() => {
+        req.flash('success_messages', 'The song has been added to your favorite list')
+        res.redirect('back')
+      })
+      .catch(err => next(err))
+  },
+
+  removeLike: (req, res, next) => {
+    return Like.findOne({
+      where: {
+        userId: req.user.id,
+        songId: req.params.songId
+      }
+    })
+
+      .then(like => {
+        if (!like) throw new Error("You HAVEN'T liked the song yet!")
+        return like.destroy()
+      })
+
+      .then(() => {
+        req.flash('success_messages', 'The song has been removed from your favorite list')
+        res.redirect('back')
+      })
+
       .catch(err => next(err))
   }
 }

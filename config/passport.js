@@ -2,8 +2,9 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const passportJWT = require('passport-jwt')
 const bcrypt = require('bcryptjs')
-const db = require('../models')
-const User = db.User
+const { User, Song } = require('../models')
+// const db = require('../models')
+// const User = db.User
 
 const JWTStrategy = passportJWT.Strategy
 const ExtractJWT = passportJWT.ExtractJwt
@@ -42,14 +43,15 @@ passport.use(new JWTStrategy(jwtOptions, (jwtPayload, cb) => {
   // console.log('JWT payload:', jwtPayload)
   User.findByPk(jwtPayload.id, {
     // include: [
-    //   { model: Restaurant, as: 'FavoritedRestaurants' },
-    //   { model: Restaurant, as: 'LikedRestaurants' },
     //   { model: User, as: 'Followers' },
     //   { model: User, as: 'Followings' }
     // ]
-    include: []
+    include: [
+      { model: Song, as: 'LikedSongs' }
+    ]
   })
     .then(user => {
+      console.log('user:', user)
       if (user) {
         // console.log('User found:', user)
         return cb(null, user)

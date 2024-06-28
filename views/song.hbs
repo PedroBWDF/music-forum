@@ -16,6 +16,23 @@
           <li><strong>Album:</strong> {{song.album}}</li>
           <li><strong>Release Year:</strong> {{song.releaseYear}}</li>
         </ul>
+        {{#if isLiked}}
+        <form action="/like/{{song.id}}?_method=DELETE" method="POST">
+          <button class="button">
+            <span class="icon is-small" style="color:gold;">
+              <i class="fa-solid fa-star"></i>
+            </span>
+          </button>
+        </form>
+        {{else}}
+        <form action="/like/{{song.id}}" method="POST">
+          <button class="button">
+            <span class="icon is-small">
+              <i class="fa-regular fa-star"></i>
+            </span>
+          </button>
+        </form>
+        {{/if}}
       </div>
     </div>
     {{!-- <div class="col-md-8">

@@ -17,6 +17,9 @@ router.get('/comments/latest', checkUser, commentController.getLatestComments)
 router.delete('/comments/:id', authenticated, authenticatedAdmin, commentController.deleteComment)
 router.post('/comments', authenticated, commentController.postComment)
 
+router.post('/like/:songId', authenticated, userController.addLike)
+router.delete('/like/:songId', authenticated, userController.removeLike)
+
 router.get('/music', checkUser, musicController.getAllMusic)
 router.get('/songs/latest', checkUser, musicController.getLatestSongs)
 router.get('/songs/:id', checkUser, musicController.getSong)
