@@ -1,6 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const passportJWT = require('passport-jwt')
+const GoogleStrategy = require('passport-google-oauth20').Strategy
 const bcrypt = require('bcryptjs')
 const { User, Song } = require('../models')
 // const db = require('../models')
@@ -35,6 +36,45 @@ passport.use(new LocalStrategy(
   }
 ))
 
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.GOOGLE_CALLBACK_URL,
+  scope: ['email', 'profile']
+},
+(accessToken, refreshToken, profile, cb) => {
+  const email = profile.emails[0].value
+  const name = profile.displayName
+  const image = profile.photos[0].value
+
+  return User.findOne({
+    attributes: ['id', 'name', 'email'],
+    where: { email },
+    raw: true
+  })
+
+    .then(user => {
+      if (user) {
+        // console.log('login user:', user)
+        return cb(null, user)
+      }
+
+      return User.create({
+        name,
+        email,
+        image,
+        isAdmin: false
+      })
+    })
+    .then(newUser => {
+      return cb(null, newUser)
+    })
+    .catch(err => {
+      console.error('Error during user creation:', err)
+      cb(err)
+    })
+}))
+
 const jwtOptions = {
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.JWT_SECRET
@@ -51,7 +91,7 @@ passport.use(new JWTStrategy(jwtOptions, (jwtPayload, cb) => {
     ]
   })
     .then(user => {
-      console.log('user:', user)
+      // console.log('user:', user)
       if (user) {
         // console.log('User found:', user)
         return cb(null, user)
