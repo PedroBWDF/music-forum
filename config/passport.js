@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local')
 const passportJWT = require('passport-jwt')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const bcrypt = require('bcryptjs')
-const { User, Song } = require('../models')
+const { User, Song, Genre } = require('../models')
 // const db = require('../models')
 // const User = db.User
 
@@ -82,12 +82,8 @@ const jwtOptions = {
 passport.use(new JWTStrategy(jwtOptions, (jwtPayload, cb) => {
   // console.log('JWT payload:', jwtPayload)
   User.findByPk(jwtPayload.id, {
-    // include: [
-    //   { model: User, as: 'Followers' },
-    //   { model: User, as: 'Followings' }
-    // ]
     include: [
-      { model: Song, as: 'LikedSongs' }
+      { model: Song, as: 'LikedSongs', include: Genre }
     ]
   })
     .then(user => {

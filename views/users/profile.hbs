@@ -10,10 +10,13 @@
       <div class="media-content">
         <p class="title is-4" style="margin-bottom: 20px;">{{profileUser.name}}</p>
         <p class="subtitle is-6">{{profileUser.email}}</p>
+        <p><a href="/users/{{profileUser.id}}/edit" class="btn btn-primary">Edit My Profile</a></p>
           {{!-- <i class="fa-solid fa-medal custom-font"></i> --}}
-          <p class="subtitle is-6 custom-font">評論了{{commentData.length}}首歌曲</p>
+          <p class="subtitle is-6 custom-font" style="margin-top: 30px; margin-bottom: 10px;">評論了{{commentData.length}}首歌曲</p>
           {{!-- <i class="fa-solid fa-medal"></i> --}}
-        <a href="/users/{{profileUser.id}}/edit" class="btn btn-primary">Edit</a>
+          <button class="button is-link is-outlined">
+          <a href="/users/{{profileUser.id}}/likedsongs" class="btn btn-primary">My Favorite Songs</a>
+          </button>
       </div>
     </div>
   </div>

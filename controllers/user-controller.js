@@ -171,6 +171,29 @@ const userController = {
       })
 
       .catch(err => next(err))
+  },
+
+  getLikedSongs: (req, res, next) => {
+    const user = req.user
+
+    if (!user || !user.LikedSongs) throw new Error('User not found')
+
+    const likedSongs = user.LikedSongs.map(song => {
+      console.log('Song object:', song)
+      return {
+        ...song,
+        isLiked: true
+      }
+    })
+
+    // 要傳到handlebars
+    const message = likedSongs.length === 0 ? true : ''
+
+    return res.render('users/liked-songs', {
+      songs: likedSongs,
+      message
+    })
   }
 }
+
 module.exports = userController
