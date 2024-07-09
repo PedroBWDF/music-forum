@@ -135,7 +135,7 @@ const userController = {
     ])
 
       .then(([song, like]) => {
-        console.log('req.user:', req.user)
+        // console.log('req.user:', req.user)
         if (!song) throw new Error("The song doesn't exist!")
         if (like) throw new Error("You've already liked the song!")
 
@@ -179,7 +179,7 @@ const userController = {
     if (!user || !user.LikedSongs) throw new Error('User not found')
 
     const likedSongs = user.LikedSongs.map(song => {
-      console.log('Song object:', song)
+      // console.log('Song object:', song)
       return {
         ...song,
         isLiked: true

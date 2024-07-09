@@ -14,6 +14,7 @@ const upload = require('../middleware/multer')
 
 // 引入admin
 const admin = require('./modules/admin')
+const spotify = require('./modules/spotify')
 
 router.get('/comments/latest', checkUser, commentController.getLatestComments)
 router.delete('/comments/:id', authenticated, authenticatedAdmin, commentController.deleteComment)
@@ -27,6 +28,7 @@ router.get('/songs/latest', checkUser, musicController.getLatestSongs)
 router.get('/songs/:id', checkUser, musicController.getSong)
 
 router.use('/admin', authenticated, authenticatedAdmin, admin)
+router.use('/spotify', checkUser, spotify)
 
 router.put('/users/:id', authenticated, upload.single('image'), userController.putUser)
 router.get('/users/:id/likedsongs', authenticated, userController.getLikedSongs)
