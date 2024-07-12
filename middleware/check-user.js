@@ -10,7 +10,7 @@ const checkUser = (req, res, next) => {
       req.user = user
       res.locals.user = user.toJSON()
       delete res.locals.user.password
-      // console.log('res.locals.user:', res.locals.user)
+      console.log('res.locals.user:', res.locals.user)
     }
     next()
   })(req, res, next)

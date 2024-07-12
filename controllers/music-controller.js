@@ -50,7 +50,8 @@ const musicController = {
     })
       .then(song => {
         if (!song) { throw new Error("The song doesn't exist!") }
-        const isLiked = song.LikedUsers.some(lu => lu.id === req.user.id)
+        console.log('LikedUsers:', song.LikedUsers)
+        const isLiked = req.user && song.LikedUsers.some(lu => lu.id === req.user.id) // 確認req.user存在 
         console.log('isLiked:', isLiked)
         // console.log('user:', res.locals.user)
         res.render('song', { user: res.locals.user, song: song.toJSON(), isLiked })

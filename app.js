@@ -1,16 +1,16 @@
 require('dotenv').config()
+// require('dotenv').config({
+//   path: process.env.NODE_ENV === 'production' ? '.env.docker' : '.env.local'
+// })
 const path = require('path')
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const app = express()
 const port = 3000
+// const port = process.env.NODE_DOCKER_PORT || 3000
 const routes = require('./routes')
 
 const handlebars = require('express-handlebars')
-// const helpers = require('./helpers')
-// const handlebarsHelpers = require('./helpers/handlebars-helpers')
-
-// require('dotenv').config()
 
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -32,7 +32,8 @@ app.use(cookieParser())
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-// const db = require('./models') 測試與資料庫連線用
+const db = require('./models') 
+// 測試與資料庫連線用
 
 app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }))
 app.use(passport.initialize())
@@ -60,6 +61,15 @@ app.use((req, res, next) => {
 })
 app.use(routes)
 
+db.sequelize.authenticate()
+  .then(() => {
+    console.log('Database connection has been established successfully.')
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err)
+  })
+
 app.listen(port, () => {
+  console.log(`Environment: ${process.env.NODE_ENV}`)
   console.log(`Example app listening on port ${port}`)
 })

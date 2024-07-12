@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  musicforum:
+    image: musicforum
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file:
+    - .env
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+      - 9229:9229
+    depends_on:
+      - mysql
+    command: ["node", "--inspect=0.0.0.0:9229", "app.js"]
+
+   mysql:
+    image: mysql:latest
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 3307:3306
