@@ -1,6 +1,6 @@
 {{>navbar}}
 
-<div class="scetion mt-6">
+<section class="mt-6">
   <div class="container">
     <h2 class="title is-2">Latest Songs</h2>
     <hr class="has-background-primary is-bold" style="width: 25%;"/>
@@ -11,7 +11,7 @@
           <div class="card-image">
             <figure class="image is-4by3">
               <a href="/songs/{{this.id}}">
-                <img src="{{this.image}}" alt="Placeholder image" />
+                <img src="{{this.image}}" alt="Placeholder image" style="object-fit: cover;"/>
               </a>
             </figure>
           </div>
@@ -41,5 +41,6 @@
         </div>
       </div>
       {{/each}}
+    </div>
   </div>
-</div>
+</section>

@@ -16,6 +16,10 @@ const upload = require('../middleware/multer')
 const admin = require('./modules/admin')
 const spotify = require('./modules/spotify')
 
+router.get('/123', (req, res, next) => {
+  res.send('Hello, World!')
+})
+
 router.get('/comments/latest', checkUser, commentController.getLatestComments)
 router.delete('/comments/:id', authenticated, authenticatedAdmin, commentController.deleteComment)
 router.post('/comments', authenticated, commentController.postComment)

@@ -1,7 +1,4 @@
 require('dotenv').config()
-// require('dotenv').config({
-//   path: process.env.NODE_ENV === 'production' ? '.env.docker' : '.env.local'
-// })
 const path = require('path')
 const express = require('express')
 const cookieParser = require('cookie-parser')
@@ -30,10 +27,10 @@ app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
+app.set('view cache', false)
 app.use(express.static(path.join(__dirname, 'public')))
 
-const db = require('./models') 
-// 測試與資料庫連線用
+const db = require('./models') // 測試與資料庫連線用
 
 app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }))
 app.use(passport.initialize())
