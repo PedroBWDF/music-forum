@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   musicforum:
-    image: musicforum
+    image: bwdf64587p/music-forum:app_latest
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -23,7 +23,7 @@ services:
     # volumes:
     #   - ./:/app
   mysql:
-    image: mysql:8.0.35
+    image: bwdf64587p/music-forum:db
     restart: always
     env_file:
       - .env
