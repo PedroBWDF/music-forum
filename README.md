@@ -5,17 +5,12 @@
 ---
 ## Table of contents
 
-- [Database Schema](#Database Schema)
-- [System Architecture](#System Architecture)
-- [Features](#Features)
-   - [Role-Based Functionality](#Role-Based Functionality)
-   - [Advanced Authentication](#Advanced Authentication)
-- [Technology Stack](#Technology Stack)
-- [Deployment](#Deployment)
-   - [With Docker](#With Docker)
-   - [Locally](#Locally)
-   - [Test Account](#Test Account)
-- [Demo](#Demo)
+- [Database Schema]
+- [System Architecture]
+- [Features]
+- [Technology Stack]
+- [Deployment]
+- [Demo]
 
 ## Database Schema
 <img width="570" alt="螢幕擷取畫面 2024-07-19 153326" src="https://github.com/user-attachments/assets/e0b552b8-b000-45d7-9d75-dc3ec1f2a810">
