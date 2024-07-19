@@ -57,3 +57,4 @@ http://localhost:3000
 accounts for easy testing:
 - Admin: root@example.com / 12345678
 - General User: user1@example.com / 12345678
+---
