@@ -1,10 +1,26 @@
 # Music-forum Project
----
+
 **A Spotify-integrated & server-side rendered web application**
 
 ---
+## Table of contents
+
+- Database Schema
+- System Architecture
+- Features
+- Technology Stack
+- Deployment
+- Demo
+
+## Database Schema
+<img width="570" alt="螢幕擷取畫面 2024-07-19 153326" src="https://github.com/user-attachments/assets/e0b552b8-b000-45d7-9d75-dc3ec1f2a810">
+
+## System Architecture
+![Unnamed File (2)](https://github.com/user-attachments/assets/250f306b-1647-4a46-acb6-5f529ae6cfed)
+
+
 ## Features
-#### Role-Based Functionality
+### Role-Based Functionality
 
   **Unauthorized Visitor**
   - Search artists, albums and tracks via Spotify API
@@ -21,10 +37,9 @@
   - Create, delete, edit comments
   - Set general user as admin
 
-#### Advanced Authentication
+### Advanced Authentication
 - Local authentication
 - Google OAuth integration for sign-up/login
----
 
 ## Technology Stack
 - **Frontend**: Server-Side Rendering (SSR)
@@ -34,12 +49,19 @@
 - **API Integration**: Spotify API
 - **Containerization**: Docker for easy deployment
 
----
 ## Deployment :
 #### With Docker
-- docker pull
-- docker-compose up --build
-- Access the app at 
+1. 
+```
+docker pull bwdf64587p/music-forum:app_latest
+docker pull bwdf64587p/music-forum:db
+```
+2.
+```
+docker-compose up --build
+```
+
+3. Access the app at 
 ```
 http://localhost:3000
 ```
@@ -57,4 +79,3 @@ http://localhost:3000
 accounts for easy testing:
 - Admin: root@example.com / 12345678
 - General User: user1@example.com / 12345678
----
