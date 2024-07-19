@@ -4,7 +4,7 @@
 
 ---
 ## Features
-#### Role-Based Functionality
+### Role-Based Functionality
 
   **Unauthorized Visitor**
   - Search artists, albums and tracks via Spotify API
@@ -35,9 +35,17 @@
 
 ## Deployment :
 #### With Docker
-- docker pull
-- docker-compose up --build
-- Access the app at 
+1. 
+```
+docker pull bwdf64587p/music-forum:app_latest
+docker pull bwdf64587p/music-forum:db
+```
+2.
+```
+docker-compose up --build
+```
+
+3. Access the app at 
 ```
 http://localhost:3000
 ```
