@@ -3,8 +3,25 @@
 **A Spotify-integrated & server-side rendered web application**
 
 ---
+## Table of contents
+
+- [Database Schema](#Database Schema)
+- [System Architecture](#System Architecture)
+- [Features](#Features)
+   - [Role-Based Functionality](#Role-Based Functionality)
+   - [Advanced Authentication](#Advanced Authentication)
+- [Technology Stack](#Technology Stack)
+- [Deployment](#Deployment)
+   - [With Docker](#With Docker)
+   - [Locally](#Locally)
+   - [Test Account](#Test Account)
+- [Demo](#Demo)
+
 ## Database Schema
 <img width="570" alt="螢幕擷取畫面 2024-07-19 153326" src="https://github.com/user-attachments/assets/e0b552b8-b000-45d7-9d75-dc3ec1f2a810">
+
+## System Architecture
+![Unnamed File (2)](https://github.com/user-attachments/assets/250f306b-1647-4a46-acb6-5f529ae6cfed)
 
 
 ## Features
@@ -25,7 +42,7 @@
   - Create, delete, edit comments
   - Set general user as admin
 
-#### Advanced Authentication
+### Advanced Authentication
 - Local authentication
 - Google OAuth integration for sign-up/login
 
