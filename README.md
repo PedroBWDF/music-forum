@@ -3,6 +3,10 @@
 **A Spotify-integrated & server-side rendered web application**
 
 ---
+## Database Schema
+<img width="570" alt="螢幕擷取畫面 2024-07-19 153326" src="https://github.com/user-attachments/assets/e0b552b8-b000-45d7-9d75-dc3ec1f2a810">
+
+
 ## Features
 ### Role-Based Functionality
 
