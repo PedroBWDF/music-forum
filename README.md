@@ -61,11 +61,14 @@ accounts for easy testing:
 #### Spotify API Integration
 ![Demo_Spotify API](https://github.com/user-attachments/assets/8f8781b6-4c22-4372-8798-990e6cefe241)
 
+
 #### Google OAuth Authentication & Admin Dashboard
 ![Demo_Google OAuth integration](https://github.com/user-attachments/assets/d04b6df6-bbaa-4014-a25a-0cccbd7758c6)
 
-#### View Songs by Genre and Like Features
+
+#### View Songs by Genre & Like Features
 ![Demo_3](https://github.com/user-attachments/assets/7bcffe09-5ffb-4f82-91e2-8a52e4aa89d7)
+
 
 #### Authorization & Error Messages
 ![Demo_4](https://github.com/user-attachments/assets/dbd6f83e-f042-4bba-ab05-9d9c5a7df458)
