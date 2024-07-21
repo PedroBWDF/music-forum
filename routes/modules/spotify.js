@@ -15,6 +15,7 @@ spotifyApi.clientCredentialsGrant().then(
 
     // 儲存access token
     spotifyApi.setAccessToken(data.body.access_token)
+    spotifyApi.setRefreshToken(data.body['refresh_token'])
     // console.log('data:', data)
   },
   function (err) {
